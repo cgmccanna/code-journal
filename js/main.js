@@ -9,3 +9,18 @@ $photoURL.addEventListener('input', function (event) {
     $imagePreview.src = 'images/placeholder-image-square.jpg';
   }
 });
+
+var $form = document.querySelector('form');
+$form.addEventListener('submit', function (event) {
+  event.preventDefault();
+  var newEntry = {
+    title: $form.elements.title.value,
+    imageURL: $form.elements.url.value,
+    notes: $form.elements.notes.value
+  };
+  newEntry.id = data.nextEntryId;
+  data.nextEntryId++;
+  data.entries.push(newEntry);
+  $imagePreview.src = 'images/placeholder-image-square.jpg';
+  $form.reset();
+});
