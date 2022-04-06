@@ -74,7 +74,29 @@ textarea:focus {
 }
 
 img {
-  border-radius: 20px;
+  border-radius: 5%;
   margin-bottom: 20px;
   width: 100%;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  list-style-position: inside;
+  padding-top: 0;
+}
+
+.entry-title {
+  font-family: "Proza Libre", sans-serif;
+  font-weight: bold;
+  font-size: 27px;
+  line-height: 1rem;
+}
+
+li {
+  margin-bottom: 30px;
+}
+
+p {
+  line-height: 1.5rem;
 }
