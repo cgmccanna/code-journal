@@ -1,5 +1,6 @@
 /* global data */
 /* exported data */
+
 var $photoURL = document.querySelector('#url');
 var $imagePreview = document.querySelector('img');
 $photoURL.addEventListener('input', function (event) {
@@ -10,18 +11,24 @@ $photoURL.addEventListener('input', function (event) {
   }
 });
 
+var $entryList = document.querySelector('ul');
+
 var $form = document.querySelector('form');
 $form.addEventListener('submit', function (event) {
+  event.preventDefault();
   var newEntry = {
     title: $form.elements.title.value,
     imageURL: $form.elements.url.value,
     notes: $form.elements.notes.value
   };
   newEntry.id = data.nextEntryId;
+  var $newEntry = createNewEntry(newEntry);
+  $entryList.prepend($newEntry);
   data.nextEntryId++;
   data.entries.unshift(newEntry);
   $imagePreview.src = 'images/placeholder-image-square.jpg';
   $form.reset();
+  switchView('entries');
 });
 
 function createNewEntry(entry) {
@@ -49,11 +56,32 @@ function createNewEntry(entry) {
   return $listEntry;
 }
 
-var $entryList = document.querySelector('ul');
-
-window.addEventListener('DOMContentLoaded', function (event) {
+document.addEventListener('DOMContentLoaded', function (event) {
   for (var i = 0; i < data.entries.length; i++) {
     var listEntry = createNewEntry(data.entries[i]);
     $entryList.appendChild(listEntry);
   }
+});
+
+function switchView(view) {
+  var $entries = document.querySelector('div[data-view="entries"]');
+  var $entryForm = document.querySelector('div[data-view="entry-form"]');
+
+  if (view === 'entry-form') {
+    $entries.setAttribute('class', 'hidden');
+    $entryForm.setAttribute('class', 'show');
+  } else if (view === 'entries') {
+    $entries.setAttribute('class', 'show');
+    $entryForm.setAttribute('class', 'hidden');
+  }
+}
+
+var $entriesNav = document.querySelector('.entries');
+$entriesNav.addEventListener('click', function (event) {
+  switchView('entries');
+});
+
+var $saveEntry = document.querySelector('.new-entry');
+$saveEntry.addEventListener('click', function (event) {
+  switchView('entry-form');
 });

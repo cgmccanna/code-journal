@@ -20,13 +20,16 @@
 <body>
   <header>
     <div class="container">
-      <div class="row header">
-        <h2 class="column-full">Code Journal</h2>
+      <div class="header">
+        <div class="row column-full">
+          <h2>Code Journal</h2>
+          <h3 class="entries">Entries</h3>
+        </div>
       </div>
     </div>
   </header>
   <main class="container">
-    <div data-view="entry-form">
+    <div data-view="entry-form" class="show">
       <h1 class="column-full">New Entry</h1>
       <form action="" method="post">
         <div class="row">
@@ -55,35 +58,12 @@
         </div>
       </form>
     </div>
-    <div data-view="entries">
-      <div class="row">
-        <h1 class="column-full">Entries</h1>
+    <div data-view="entries" class="hidden">
+      <div class="row entries-new column-full">
+        <span class="entries-title">Entries</span>
+        <a href="#" class="new-entry">NEW</a>
       </div>
       <ul>
-        <li class="row">
-          <img class="column-half" src="images/placeholder-image-square.jpg">
-          <div class="column-half">
-            <h3 class="entry-title">First Entry</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-        </li>
-        <li class="row">
-          <img class="column-half" src="images/placeholder-image-square.jpg">
-          <div class="column-half">
-            <h3 class="entry-title">Second Entry</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-        </li>
       </ul>
     </div>
   </main>
