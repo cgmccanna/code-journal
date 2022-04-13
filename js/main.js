@@ -45,10 +45,18 @@ function createNewEntry(entry) {
   $entryContent.setAttribute('class', 'column-half');
   $listEntry.appendChild($entryContent);
 
+  var $titleEdit = document.createElement('div');
+  $titleEdit.setAttribute('class', 'row title-edit');
+  $entryContent.appendChild($titleEdit);
+
   var $entryTitle = document.createElement('h3');
   $entryTitle.setAttribute('class', 'entry-title');
   $entryTitle.textContent = entry.title;
-  $entryContent.appendChild($entryTitle);
+  $titleEdit.appendChild($entryTitle);
+
+  var $penIcon = document.createElement('i');
+  $penIcon.setAttribute('class', 'fas fa-pen');
+  $titleEdit.appendChild($penIcon);
 
   var $entryNotes = document.createElement('p');
   $entryNotes.textContent = entry.notes;
