@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     var listEntry = createNewEntry(data.entries[i]);
     $entryList.appendChild(listEntry);
   }
+  switchView(data.view);
 });
 
 function switchView(view) {
@@ -78,10 +79,12 @@ function switchView(view) {
 
 var $entriesNav = document.querySelector('.entries');
 $entriesNav.addEventListener('click', function (event) {
+  data.view = 'entries';
   switchView('entries');
 });
 
-var $saveEntry = document.querySelector('.new-entry');
-$saveEntry.addEventListener('click', function (event) {
+var $createEntry = document.querySelector('.new-entry');
+$createEntry.addEventListener('click', function (event) {
+  data.view = 'entry-form';
   switchView('entry-form');
 });

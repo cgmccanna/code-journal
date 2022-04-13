@@ -22,6 +22,10 @@ h2 {
   font-weight: lighter;
 }
 
+.entries:hover {
+  cursor: pointer;
+}
+
 .gray-border {
   border: rgb(155, 155, 155) solid 1px;
   border-radius: 3px;
@@ -135,6 +139,7 @@ p {
 
 .entries-new {
   justify-content: space-between;
+  padding-top: 15px;
 }
 
 .hidden {
