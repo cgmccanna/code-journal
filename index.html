@@ -20,14 +20,17 @@
 <body>
   <header>
     <div class="container">
-      <div class="row header">
-        <h2 class="column-full">Code Journal</h2>
+      <div class="header">
+        <div class="row column-full">
+          <h2>Code Journal</h2>
+          <h3 class="entries">Entries</h3>
+        </div>
       </div>
     </div>
   </header>
   <main class="container">
-    <h1 class="column-full">New Entry</h1>
-    <div data-view="entry-form">
+    <div data-view="entry-form" class="show">
+      <h1 class="column-full">New Entry</h1>
       <form action="" method="post">
         <div class="row">
           <img src="images/placeholder-image-square.jpg" class="column-half">
@@ -52,9 +55,17 @@
           <div class="button row column-full">
             <button id="save" name="save">SAVE</button>
           </div>
-          <div>
-            </form>
-          </div>
+        </div>
+      </form>
+    </div>
+    <div data-view="entries" class="hidden">
+      <div class="row entries-new column-full">
+        <span class="entries-title">Entries</span>
+        <a href="#" class="new-entry">NEW</a>
+      </div>
+      <ul>
+      </ul>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
