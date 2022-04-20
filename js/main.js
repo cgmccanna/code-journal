@@ -25,7 +25,7 @@ $form.addEventListener('submit', function (event) {
   var $newEntry = createNewEntry(newEntry);
   $entryList.prepend($newEntry);
   data.nextEntryId++;
-  data.entries.unshift(newEntry);
+  data.entries.push(newEntry);
   $imagePreview.src = 'images/placeholder-image-square.jpg';
   $form.reset();
   data.view = 'entries';
@@ -35,6 +35,7 @@ $form.addEventListener('submit', function (event) {
 function createNewEntry(entry) {
   var $listEntry = document.createElement('li');
   $listEntry.setAttribute('class', 'row');
+  $listEntry.setAttribute('data-entry-id', entry.id);
 
   var $image = document.createElement('img');
   $image.setAttribute('class', 'column-half');
@@ -66,7 +67,7 @@ function createNewEntry(entry) {
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {
-  for (var i = 0; i < data.entries.length; i++) {
+  for (var i = data.entries.length - 1; i >= 0; i--) {
     var listEntry = createNewEntry(data.entries[i]);
     $entryList.appendChild(listEntry);
   }
@@ -96,4 +97,14 @@ var $createEntry = document.querySelector('.new-entry');
 $createEntry.addEventListener('click', function (event) {
   data.view = 'entry-form';
   switchView('entry-form');
+});
+
+var $renderedEntries = document.querySelector('ul');
+$renderedEntries.addEventListener('click', function (event) {
+  if (event.target.matches('.fas')) {
+    data.view = 'entry-form';
+    switchView('entry-form');
+    var grandpa = event.target.parentElement.parentElement.parentElement;
+    data.editing = data.entries[(grandpa.getAttribute('data-entry-id') - 1)];
+  }
 });

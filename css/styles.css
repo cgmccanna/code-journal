@@ -156,6 +156,10 @@ p {
   font-size: 25px;
 }
 
+.fa-pen:hover {
+  cursor: pointer;
+}
+
 .title-edit {
   justify-content: space-between;
 }
