@@ -106,5 +106,9 @@ $renderedEntries.addEventListener('click', function (event) {
     switchView('entry-form');
     var grandpa = event.target.parentElement.parentElement.parentElement;
     data.editing = data.entries[(grandpa.getAttribute('data-entry-id') - 1)];
+    document.getElementById('title').setAttribute('value', data.editing.title);
+    document.getElementById('url').setAttribute('value', data.editing.imageURL);
+    $imagePreview.src = data.editing.imageURL;
+    document.getElementById('notes').textContent = data.editing.notes;
   }
 });
