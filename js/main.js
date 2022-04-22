@@ -16,20 +16,32 @@ var $entryList = document.querySelector('ul');
 var $form = document.querySelector('form');
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
-  var newEntry = {
-    title: $form.elements.title.value,
-    imageURL: $form.elements.url.value,
-    notes: $form.elements.notes.value
-  };
-  newEntry.id = data.nextEntryId;
-  var $newEntry = createNewEntry(newEntry);
-  $entryList.prepend($newEntry);
-  data.nextEntryId++;
-  data.entries.push(newEntry);
-  $imagePreview.src = 'images/placeholder-image-square.jpg';
-  $form.reset();
-  data.view = 'entries';
-  switchView('entries');
+  if (data.editing !== null) {
+    var oldEntry = data.entries[(data.editing.id - 1)];
+    oldEntry.title = $form.elements.title.value;
+    oldEntry.imageURL = $form.elements.url.value;
+    oldEntry.notes = $form.elements.notes.value;
+    $imagePreview.src = 'images/placeholder-image-square.jpg';
+    $form.reset();
+    data.view = 'entries';
+    switchView('entries');
+    data.editing = null;
+  } else {
+    var newEntry = {
+      title: $form.elements.title.value,
+      imageURL: $form.elements.url.value,
+      notes: $form.elements.notes.value
+    };
+    newEntry.id = data.nextEntryId;
+    var $newEntry = createNewEntry(newEntry);
+    $entryList.prepend($newEntry);
+    data.nextEntryId++;
+    data.entries.push(newEntry);
+    $imagePreview.src = 'images/placeholder-image-square.jpg';
+    $form.reset();
+    data.view = 'entries';
+    switchView('entries');
+  }
 });
 
 function createNewEntry(entry) {
