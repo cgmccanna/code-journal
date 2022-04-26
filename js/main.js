@@ -17,11 +17,17 @@ var $form = document.querySelector('form');
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
   if (data.editing !== null) {
-    var oldEntry = data.entries[(data.editing.id - 1)];
-    oldEntry.title = $form.elements.title.value;
-    oldEntry.imageURL = $form.elements.url.value;
-    oldEntry.notes = $form.elements.notes.value;
+    var editedEntry = data.entries[(data.editing.id - 1)];
+    editedEntry.title = $form.elements.title.value;
+    editedEntry.imageURL = $form.elements.url.value;
+    editedEntry.notes = $form.elements.notes.value;
     $imagePreview.src = 'images/placeholder-image-square.jpg';
+    var allEntries = document.querySelectorAll('li');
+    for (var i = (allEntries.length - 1); i >= 0; i--) {
+      if ((allEntries[i].getAttribute('data-entry-id')) === (JSON.stringify(editedEntry.id))) {
+        allEntries[i].replaceWith(createNewEntry(editedEntry));
+      }
+    }
     $form.reset();
     data.view = 'entries';
     switchView('entries');
@@ -69,6 +75,7 @@ function createNewEntry(entry) {
 
   var $penIcon = document.createElement('i');
   $penIcon.setAttribute('class', 'fas fa-pen');
+  $penIcon.setAttribute('data-entry-id', entry.id);
   $titleEdit.appendChild($penIcon);
 
   var $entryNotes = document.createElement('p');
@@ -107,6 +114,13 @@ $entriesNav.addEventListener('click', function (event) {
 
 var $createEntry = document.querySelector('.new-entry');
 $createEntry.addEventListener('click', function (event) {
+  // $form.reset();
+  document.getElementById('title').setAttribute('value', '');
+  document.getElementById('url').setAttribute('value', '');
+  document.getElementById('notes').textContent = '';
+  $imagePreview.src = 'images/placeholder-image-square.jpg';
+  document.getElementById('newEntryTitle').textContent = 'New Entry';
+  data.editing = null;
   data.view = 'entry-form';
   switchView('entry-form');
 });
@@ -114,10 +128,11 @@ $createEntry.addEventListener('click', function (event) {
 var $renderedEntries = document.querySelector('ul');
 $renderedEntries.addEventListener('click', function (event) {
   if (event.target.matches('.fas')) {
+    document.getElementById('newEntryTitle').textContent = 'Edit Entry';
     data.view = 'entry-form';
     switchView('entry-form');
-    var grandpa = event.target.parentElement.parentElement.parentElement;
-    data.editing = data.entries[(grandpa.getAttribute('data-entry-id') - 1)];
+    var editPen = event.target;
+    data.editing = data.entries[(editPen.getAttribute('data-entry-id') - 1)];
     document.getElementById('title').setAttribute('value', data.editing.title);
     document.getElementById('url').setAttribute('value', data.editing.imageURL);
     $imagePreview.src = data.editing.imageURL;
