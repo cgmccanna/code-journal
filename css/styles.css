@@ -149,3 +149,17 @@ p {
 .show {
   display: block;
 }
+
+.fa-pen {
+  color: rgb(86, 43, 129);
+  align-self: center;
+  font-size: 25px;
+}
+
+.fa-pen:hover {
+  cursor: pointer;
+}
+
+.title-edit {
+  justify-content: space-between;
+}
