@@ -114,7 +114,10 @@ $entriesNav.addEventListener('click', function (event) {
 
 var $createEntry = document.querySelector('.new-entry');
 $createEntry.addEventListener('click', function (event) {
-  // $form.reset();
+  var $deleteButton = document.getElementById('delete');
+  $deleteButton.setAttribute('class', 'hidden');
+  var $buttonsDiv = document.getElementById('buttons');
+  $buttonsDiv.setAttribute('class', 'button-new row column-full');
   document.getElementById('title').setAttribute('value', '');
   document.getElementById('url').setAttribute('value', '');
   document.getElementById('notes').textContent = '';
@@ -129,6 +132,10 @@ var $renderedEntries = document.querySelector('ul');
 $renderedEntries.addEventListener('click', function (event) {
   if (event.target.matches('.fas')) {
     document.getElementById('newEntryTitle').textContent = 'Edit Entry';
+    var $deleteButton = document.getElementById('delete');
+    $deleteButton.setAttribute('class', 'show');
+    var $buttonsDiv = document.getElementById('buttons');
+    $buttonsDiv.setAttribute('class', 'button-edit row column-full');
     data.view = 'entry-form';
     switchView('entry-form');
     var editPen = event.target;

@@ -49,12 +49,17 @@ h1 {
   font-size: 35px;
 }
 
-.button {
+.button-new {
   justify-content: end;
   width: 100%;
 }
 
-button {
+.button-edit {
+  justify-content: space-between;
+  width: 100%;
+}
+
+#save {
   color: white;
   background-color: rgb(86, 43, 129);
   border: none;
@@ -62,6 +67,16 @@ button {
   border-radius: 5px;
   font-family: "Open Sans", sans-serif;
   font-size: 15px;
+}
+
+#delete {
+  border: none;
+  color: red;
+  text-decoration: underline red;
+}
+
+#delete:hover {
+  cursor: pointer;
 }
 
 input,
