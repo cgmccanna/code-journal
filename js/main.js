@@ -146,3 +146,10 @@ $renderedEntries.addEventListener('click', function (event) {
     document.getElementById('notes').textContent = data.editing.notes;
   }
 });
+
+var $deleteButton = document.getElementById('delete');
+$deleteButton.addEventListener('click', function (event) {
+  var $modal = document.querySelector('.modal');
+  $modal.className = 'modal show';
+  switchView(data.view);
+});
