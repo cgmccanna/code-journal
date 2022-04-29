@@ -153,3 +153,10 @@ $deleteButton.addEventListener('click', function (event) {
   $modal.className = 'modal show';
   switchView(data.view);
 });
+
+var $modal = document.querySelector('.modal');
+$modal.addEventListener('click', function (event) {
+  if (event.target.matches('.cancel')) {
+    $modal.className = 'modal hidden';
+  }
+});
