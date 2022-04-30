@@ -17,10 +17,16 @@ var $form = document.querySelector('form');
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
   if (data.editing !== null) {
-    var editedEntry = data.entries[(data.editing.id - 1)];
+    var editedEntry = {};
+    for (var j = 0; j < data.entries.length; j++) {
+      if ((data.entries[j].id) === (data.editing.id)) {
+        data.entries[j] = editedEntry;
+      }
+    }
     editedEntry.title = $form.elements.title.value;
     editedEntry.imageURL = $form.elements.url.value;
     editedEntry.notes = $form.elements.notes.value;
+    editedEntry.id = data.editing.id;
     $imagePreview.src = 'images/placeholder-image-square.jpg';
     var allEntries = document.querySelectorAll('li');
     for (var i = (allEntries.length - 1); i >= 0; i--) {
@@ -114,7 +120,10 @@ $entriesNav.addEventListener('click', function (event) {
 
 var $createEntry = document.querySelector('.new-entry');
 $createEntry.addEventListener('click', function (event) {
-  // $form.reset();
+  var $deleteButton = document.getElementById('delete');
+  $deleteButton.setAttribute('class', 'hidden');
+  var $buttonsDiv = document.getElementById('buttons');
+  $buttonsDiv.setAttribute('class', 'button-new row column-full');
   document.getElementById('title').setAttribute('value', '');
   document.getElementById('url').setAttribute('value', '');
   document.getElementById('notes').textContent = '';
@@ -129,13 +138,51 @@ var $renderedEntries = document.querySelector('ul');
 $renderedEntries.addEventListener('click', function (event) {
   if (event.target.matches('.fas')) {
     document.getElementById('newEntryTitle').textContent = 'Edit Entry';
+    var $deleteButton = document.getElementById('delete');
+    $deleteButton.setAttribute('class', 'show');
+    var $buttonsDiv = document.getElementById('buttons');
+    $buttonsDiv.setAttribute('class', 'button-edit row column-full');
     data.view = 'entry-form';
     switchView('entry-form');
     var editPen = event.target;
-    data.editing = data.entries[(editPen.getAttribute('data-entry-id') - 1)];
+    for (var i = 0; i < data.entries.length; i++) {
+      if ((JSON.stringify((data.entries[i].id))) === ((editPen.getAttribute('data-entry-id')))) {
+        data.editing = data.entries[i];
+        break;
+      }
+    }
     document.getElementById('title').setAttribute('value', data.editing.title);
     document.getElementById('url').setAttribute('value', data.editing.imageURL);
     $imagePreview.src = data.editing.imageURL;
     document.getElementById('notes').textContent = data.editing.notes;
   }
 });
+
+var $deleteButton = document.getElementById('delete');
+$deleteButton.addEventListener('click', function (event) {
+  var $modal = document.querySelector('.modal');
+  $modal.className = 'modal show';
+  switchView(data.view);
+});
+
+var $modal = document.querySelector('.modal');
+$modal.addEventListener('click', function (event) {
+  if (event.target.matches('.cancel')) {
+    $modal.className = 'modal hidden';
+  } else if (event.target.matches('.confirm')) {
+    var allEntries = document.querySelectorAll('li');
+    for (var i = 0; i < allEntries.length; i++) {
+      if ((allEntries[i].getAttribute('data-entry-id')) === (JSON.stringify(data.editing.id))) {
+        allEntries[i].remove();
+      }
+    }
+    for (var j = 0; j < data.entries.length; j++) {
+      if ((data.entries[j].id) === (data.editing.id)) {
+        data.entries.splice((j), 1);
+      }
+    }
+    $modal.className = 'modal hidden';
+    switchView('entries');
+  }
+}
+);
